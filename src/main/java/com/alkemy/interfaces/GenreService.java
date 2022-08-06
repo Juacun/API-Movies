@@ -2,6 +2,8 @@ package com.alkemy.interfaces;
 
 import java.util.List;
 
+import com.alkemy.modelDTO.GenreDTO;
+
 public interface GenreService {
 
 	public GenreDTO getGenreById(Long id);

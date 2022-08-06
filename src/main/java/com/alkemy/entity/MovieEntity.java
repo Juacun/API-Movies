@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -29,6 +30,7 @@ public class MovieEntity {
 	private String title;
 	
 	@Column(name = "date_creation")
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private LocalDate dateCreation;
 	
 	private int score;

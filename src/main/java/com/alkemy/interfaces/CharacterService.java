@@ -2,6 +2,8 @@ package com.alkemy.interfaces;
 
 import java.util.List;
 
+import com.alkemy.modelDTO.CharacterDTO;
+
 public interface CharacterService {
 
 	public CharacterDTO getCharacterById(Long id);
