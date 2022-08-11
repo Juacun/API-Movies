@@ -2,8 +2,6 @@ package com.alkemy.modelDTO;
 
 import java.util.List;
 
-import com.alkemy.entity.MovieEntity;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,7 +15,7 @@ public class GenreDTO {
 	
 	private String name;
 	
-	private List<MovieEntity> associatedMovies;
+	private List<MovieDTO> associatedMovies;
 
 	
 	public Long getId() {
@@ -44,11 +42,11 @@ public class GenreDTO {
 		this.name = name;
 	}
 
-	public List<MovieEntity> getAssociatedMovies() {
+	public List<MovieDTO> getAssociatedMovies() {
 		return associatedMovies;
 	}
 
-	public void setAssociatedMovies(List<MovieEntity> associatedMovies) {
+	public void setAssociatedMovies(List<MovieDTO> associatedMovies) {
 		this.associatedMovies = associatedMovies;
 	}
 	

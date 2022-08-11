@@ -29,7 +29,7 @@ public class MovieServiceImpl implements MovieService{
 	public MovieDTO getMovieById(Long id) {
 
 		MovieEntity movieEntity  = movieRepository.getReferenceById(id);
-		MovieDTO result = movieMapper.movieEntity2DTO(movieEntity);
+		MovieDTO result = movieMapper.movieEntity2DTO(movieEntity, true, true);
 		return result;
 	}
 
@@ -37,7 +37,7 @@ public class MovieServiceImpl implements MovieService{
 	public List<MovieDTO> getAllMovie() {
 
 		List<MovieEntity> movieEntityList = movieRepository.findAll();
-		List<MovieDTO> result = movieMapper.movieEntityList2DTOList(movieEntityList);
+		List<MovieDTO> result = movieMapper.movieEntityList2DTOList(movieEntityList, true, true);
 		return result;
 	}
 
@@ -46,7 +46,7 @@ public class MovieServiceImpl implements MovieService{
 		
 		MovieEntity movieEntity = movieMapper.movieDTO2Entity(movieDTO);
 		MovieEntity movieEntitySaved = movieRepository.save(movieEntity);
-		MovieDTO result = movieMapper.movieEntity2DTO(movieEntitySaved);
+		MovieDTO result = movieMapper.movieEntity2DTO(movieEntitySaved, true, true);
 		return result;
 	}
 

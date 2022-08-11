@@ -3,9 +3,6 @@ package com.alkemy.modelDTO;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.alkemy.entity.CharacterEntity;
-import com.alkemy.entity.GenreEntity;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,9 +20,9 @@ public class MovieDTO {
 	
 	private int score;
 	
-	private List<CharacterEntity> associatedCharacters;
+	private List<CharacterDTO> associatedCharacters;
 
-	private List<GenreEntity> associatedGenres;
+	private List<GenreDTO> associatedGenres;
 
 	
 	public Long getId() {
@@ -68,19 +65,19 @@ public class MovieDTO {
 		this.score = score;
 	}
 
-	public List<CharacterEntity> getAssociatedCharacters() {
+	public List<CharacterDTO> getAssociatedCharacters() {
 		return associatedCharacters;
 	}
 
-	public void setAssociatedCharacters(List<CharacterEntity> associatedCharacters) {
+	public void setAssociatedCharacters(List<CharacterDTO> associatedCharacters) {
 		this.associatedCharacters = associatedCharacters;
 	}
 
-	public List<GenreEntity> getAssociatedGenres() {
+	public List<GenreDTO> getAssociatedGenres() {
 		return associatedGenres;
 	}
 
-	public void setAssociatedGenres(List<GenreEntity> associatedGenres) {
+	public void setAssociatedGenres(List<GenreDTO> associatedGenres) {
 		this.associatedGenres = associatedGenres;
 	}
 	
