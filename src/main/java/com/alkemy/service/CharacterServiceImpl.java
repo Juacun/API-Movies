@@ -29,7 +29,7 @@ public class CharacterServiceImpl implements CharacterService{
 	public CharacterDTO getCharacterById(Long id) {
 		
 		CharacterEntity characterEntity = characterRepository.getReferenceById(id);
-		CharacterDTO result = characterMapper.characterEntity2DTO(characterEntity);
+		CharacterDTO result = characterMapper.characterEntity2DTO(characterEntity, true);
 		return result;
 	}
 
@@ -37,7 +37,7 @@ public class CharacterServiceImpl implements CharacterService{
 	public List<CharacterDTO> getAllCharacter() {
 		
 		List<CharacterEntity> characterEntityList = characterRepository.findAll();
-		List<CharacterDTO> result = characterMapper.characterEntityList2DTOList(characterEntityList);
+		List<CharacterDTO> result = characterMapper.characterEntityList2DTOList(characterEntityList, true);
 		return result;
 	}
 
@@ -46,7 +46,7 @@ public class CharacterServiceImpl implements CharacterService{
 		
 		CharacterEntity characterEntity = characterMapper.characterDTO2Entity(characterDTO);
 		CharacterEntity characterEntitySaved = characterRepository.save(characterEntity);
-		CharacterDTO result = characterMapper.characterEntity2DTO(characterEntitySaved);
+		CharacterDTO result = characterMapper.characterEntity2DTO(characterEntitySaved, true);
 		return result;
 	}
 

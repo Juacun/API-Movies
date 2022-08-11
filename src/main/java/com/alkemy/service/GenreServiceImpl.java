@@ -29,7 +29,7 @@ public class GenreServiceImpl implements GenreService{
 	public GenreDTO getGenreById(Long id) {
 		
 		GenreEntity genreEntity = genreRepository.getReferenceById(id);
-		GenreDTO result = genreMapper.genreEntity2DTO(genreEntity);
+		GenreDTO result = genreMapper.genreEntity2DTO(genreEntity, true);
 		return result;
 	}
 
@@ -37,7 +37,7 @@ public class GenreServiceImpl implements GenreService{
 	public List<GenreDTO> getAllGenre() {
 		
 		List<GenreEntity> genreEntityList = genreRepository.findAll();
-		List<GenreDTO> result = genreMapper.genreEntityList2DTOList(genreEntityList);
+		List<GenreDTO> result = genreMapper.genreEntityList2DTOList(genreEntityList, true);
 		return result;
 	}
 
@@ -46,7 +46,7 @@ public class GenreServiceImpl implements GenreService{
 		
 		GenreEntity genreEntity = genreMapper.genreDTO2Entity(genreDTO);
 		GenreEntity genreEntitySaved = genreRepository.save(genreEntity);
-		GenreDTO result = genreMapper.genreEntity2DTO(genreEntitySaved);
+		GenreDTO result = genreMapper.genreEntity2DTO(genreEntitySaved, true);
 		return result;
 	}
 
