@@ -35,28 +35,28 @@ public class MovieController {
 	@GetMapping
 	public ResponseEntity<List<MovieDTO>> getAll() {
 		
-		List<MovieDTO> movieDTOList = movieService.getAllMovie();
+		List<MovieDTO> movieDTOList = movieService.getAllMovie(true, true);
 		return ResponseEntity.status(HttpStatus.OK).body(movieDTOList);
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<MovieDTO> getById(@PathVariable Long id) {
 		
-		MovieDTO movieDTO = movieService.getMovieById(id);
+		MovieDTO movieDTO = movieService.getMovieById(id, true, true);
 		return ResponseEntity.status(HttpStatus.OK).body(movieDTO);
 	}
 	
 	@PostMapping
 	public ResponseEntity<MovieDTO> save(@RequestBody MovieDTO movieDTO) {
 		
-		MovieDTO movieDTOSaved = movieService.saveMovie(movieDTO);
+		MovieDTO movieDTOSaved = movieService.saveMovie(movieDTO, true ,true);
 		return ResponseEntity.status(HttpStatus.CREATED).body(movieDTOSaved);
 	}
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<MovieDTO> update(@PathVariable Long id, @RequestBody MovieDTO movieDTO) {
 		
-		MovieDTO movieDTOUpdated = movieService.updateMovie(id, movieDTO);
+		MovieDTO movieDTOUpdated = movieService.updateMovie(id, movieDTO, true ,true);
 		return ResponseEntity.status(HttpStatus.OK).body(movieDTOUpdated);
 	}
 	
@@ -67,31 +67,31 @@ public class MovieController {
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 	
-	@PostMapping("/{id}/characters/{idCharacter}")
-	public ResponseEntity<Void> addCharacter(@PathVariable Long id, @PathVariable Long idCharacter) {
+	@PostMapping("/{idMovie}/characters/{idCharacter}")
+	public ResponseEntity<MovieDTO> addCharacter(@PathVariable Long idMovie, @PathVariable Long idCharacter) {
 		
-		// TODO add Character to Movie
-		return ResponseEntity.status(HttpStatus.OK).build();
+		MovieDTO movieDTO = movieService.addCharacter2Movie(idMovie, idCharacter);
+		return ResponseEntity.status(HttpStatus.OK).body(movieDTO);
 	}
 	
-	@DeleteMapping("/{id}/characters/{idCharacter}")
-	public ResponseEntity<Void> removePais(@PathVariable Long id, @PathVariable Long idCharacter) {
+	@DeleteMapping("/{idMovie}/characters/{idCharacter}")
+	public ResponseEntity<MovieDTO> removeCharacter(@PathVariable Long idMovie, @PathVariable Long idCharacter) {
 		
-		// TODO remove Character from Movie
-		return ResponseEntity.status(HttpStatus.OK).build();
+		MovieDTO movieDTO = movieService.removeCharacter2Movie(idMovie, idCharacter);
+		return ResponseEntity.status(HttpStatus.OK).body(movieDTO);
 	}
 	
-	@PostMapping("/{id}/genres/{idGenre}")
-	public ResponseEntity<Void> addGenre(@PathVariable Long id, @PathVariable Long idGenre) {
+	@PostMapping("/{idMovie}/genres/{idGenre}")
+	public ResponseEntity<MovieDTO> addGenre(@PathVariable Long idMovie, @PathVariable Long idGenre) {
 		
-		// TODO add Genre to Movie
-		return ResponseEntity.status(HttpStatus.OK).build();
+		MovieDTO movieDTO = movieService.addGenre2Movie(idMovie, idGenre);
+		return ResponseEntity.status(HttpStatus.OK).body(movieDTO);
 	}
 	
-	@DeleteMapping("/{id}/genres/{idGenre}")
-	public ResponseEntity<Void> removeGenre(@PathVariable Long id, @PathVariable Long idGenre) {
+	@DeleteMapping("/{idMovie}/genres/{idGenre}")
+	public ResponseEntity<MovieDTO> removeGenre(@PathVariable Long idMovie, @PathVariable Long idGenre) {
 		
-		// TODO remove Genre from Movie
-		return ResponseEntity.status(HttpStatus.OK).build();
+		MovieDTO movieDTO = movieService.removeGenre2Movie(idMovie, idGenre);
+		return ResponseEntity.status(HttpStatus.OK).body(movieDTO);
 	}
 }

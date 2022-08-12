@@ -27,28 +27,28 @@ public class CharacterController {
 	@GetMapping
 	public ResponseEntity<List<CharacterDTO>> getAll() {
 		
-		List<CharacterDTO> characterDTOList = characterService.getAllCharacter();
+		List<CharacterDTO> characterDTOList = characterService.getAllCharacter(true);
 		return ResponseEntity.status(HttpStatus.OK).body(characterDTOList);
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<CharacterDTO> getById(@PathVariable Long id) {
 		
-		CharacterDTO characterDTO = characterService.getCharacterById(id);
+		CharacterDTO characterDTO = characterService.getCharacterById(id, true);
 		return ResponseEntity.status(HttpStatus.OK).body(characterDTO);
 	}
 	
 	@PostMapping
 	public ResponseEntity<CharacterDTO> save(@RequestBody CharacterDTO characterDTO) {
 		
-		CharacterDTO characterDTOSaved = characterService.saveCharacter(characterDTO);
+		CharacterDTO characterDTOSaved = characterService.saveCharacter(characterDTO, true);
 		return ResponseEntity.status(HttpStatus.CREATED).body(characterDTOSaved);
 	}
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<CharacterDTO> update(@PathVariable Long id, @RequestBody CharacterDTO characterDTO) {
 		
-		CharacterDTO characterDTOUpdated = characterService.updateCharacter(id, characterDTO);
+		CharacterDTO characterDTOUpdated = characterService.updateCharacter(id, characterDTO, true);
 		return ResponseEntity.status(HttpStatus.OK).body(characterDTOUpdated);
 	}
 	

@@ -19,7 +19,7 @@ public class MovieMapper {
 	@Autowired
 	GenreMapper genreMapper;
 	
-	public MovieEntity movieDTO2Entity(MovieDTO movieDTO) {
+	public MovieEntity movieDTO2Entity(MovieDTO movieDTO, boolean loadAssociatedCharacters, boolean loadAssociatedGenres) {
 		
 		MovieEntity movieEntity = new MovieEntity();
 		
@@ -28,8 +28,14 @@ public class MovieMapper {
 		movieEntity.setTitle(movieDTO.getTitle());
 		movieEntity.setDateCreation(movieDTO.getDateCreation());
 		movieEntity.setScore(movieDTO.getScore());
-		//TODO movieEntity.setAssociatedCharacters(movieDTO.getAssociatedCharacters());
-		//TODO movieEntity.setAssociatedGenres(movieDTO.getAssociatedGenres());
+		
+		if (loadAssociatedCharacters) {
+			movieEntity.setAssociatedCharacters(characterMapper.characterDTOList2EntityList(movieDTO.getAssociatedCharacters(), false));
+		}
+		
+		if (loadAssociatedGenres) {
+			movieEntity.setAssociatedGenres(genreMapper.genreDTOList2EntityList(movieDTO.getAssociatedGenres(), false));
+		}
 		
 		return movieEntity;
 	}
@@ -65,5 +71,15 @@ public class MovieMapper {
 		}
 		
 		return movieDTOList;
+	}
+	
+	public List<MovieEntity> movieDTOList2EntityList(List<MovieDTO> movieDTOList, boolean loadAssociatedCharacters, boolean loadAssociatedGenres) {
+		
+		List<MovieEntity> movieEntityList = new ArrayList<>();
+		for (MovieDTO dto : movieDTOList) {
+			movieEntityList.add(this.movieDTO2Entity(dto, loadAssociatedCharacters, loadAssociatedGenres));
+		}
+		
+		return movieEntityList;
 	}
 }

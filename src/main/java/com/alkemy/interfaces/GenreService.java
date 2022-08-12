@@ -6,13 +6,13 @@ import com.alkemy.modelDTO.GenreDTO;
 
 public interface GenreService {
 
-	public GenreDTO getGenreById(Long id);
+	public GenreDTO getGenreById(Long id, boolean loadAssociatedMovies);
 	
-	public List<GenreDTO> getAllGenre();
+	public List<GenreDTO> getAllGenre(boolean loadAssociatedMovies);
 	
-	public GenreDTO saveGenre(GenreDTO genreDTO);
+	public GenreDTO saveGenre(GenreDTO genreDTO, boolean loadAssociatedMovies);
 	
-	public GenreDTO updateGenre(Long id, GenreDTO genreDTO);
+	public GenreDTO updateGenre(Long id, GenreDTO genreDTO, boolean loadAssociatedMovies);
 	
 	public void deleteGenreById(Long id);
 }

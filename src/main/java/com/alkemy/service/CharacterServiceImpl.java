@@ -26,35 +26,35 @@ public class CharacterServiceImpl implements CharacterService{
 
 	
 	@Override
-	public CharacterDTO getCharacterById(Long id) {
+	public CharacterDTO getCharacterById(Long id, boolean loadAssociatedMovies) {
 		
 		CharacterEntity characterEntity = characterRepository.getReferenceById(id);
-		CharacterDTO result = characterMapper.characterEntity2DTO(characterEntity, true);
+		CharacterDTO result = characterMapper.characterEntity2DTO(characterEntity, loadAssociatedMovies);
 		return result;
 	}
 
 	@Override
-	public List<CharacterDTO> getAllCharacter() {
+	public List<CharacterDTO> getAllCharacter(boolean loadAssociatedMovies) {
 		
 		List<CharacterEntity> characterEntityList = characterRepository.findAll();
-		List<CharacterDTO> result = characterMapper.characterEntityList2DTOList(characterEntityList, true);
+		List<CharacterDTO> result = characterMapper.characterEntityList2DTOList(characterEntityList, loadAssociatedMovies);
 		return result;
 	}
 
 	@Override
-	public CharacterDTO saveCharacter(CharacterDTO characterDTO) {
+	public CharacterDTO saveCharacter(CharacterDTO characterDTO, boolean loadAssociatedMovies) {
 		
-		CharacterEntity characterEntity = characterMapper.characterDTO2Entity(characterDTO);
+		CharacterEntity characterEntity = characterMapper.characterDTO2Entity(characterDTO, true);
 		CharacterEntity characterEntitySaved = characterRepository.save(characterEntity);
-		CharacterDTO result = characterMapper.characterEntity2DTO(characterEntitySaved, true);
+		CharacterDTO result = characterMapper.characterEntity2DTO(characterEntitySaved, loadAssociatedMovies);
 		return result;
 	}
 
 	@Override
-	public CharacterDTO updateCharacter(Long id, CharacterDTO characterDTO) {
+	public CharacterDTO updateCharacter(Long id, CharacterDTO characterDTO, boolean loadAssociatedMovies) {
 		
 		characterDTO.setId(id);
-		return saveCharacter(characterDTO);
+		return saveCharacter(characterDTO, loadAssociatedMovies);
 	}
 
 	@Override

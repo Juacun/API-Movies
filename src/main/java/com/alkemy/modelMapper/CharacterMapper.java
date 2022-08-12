@@ -16,7 +16,7 @@ public class CharacterMapper {
 	@Autowired
 	MovieMapper movieMapper;
 	
-	public CharacterEntity characterDTO2Entity(CharacterDTO characterDTO) {
+	public CharacterEntity characterDTO2Entity(CharacterDTO characterDTO, boolean loadAssociatedMovies) {
 		
 		CharacterEntity characterEntity = new CharacterEntity();
 		
@@ -26,7 +26,10 @@ public class CharacterMapper {
 		characterEntity.setAge(characterDTO.getAge());
 		characterEntity.setWeight(characterDTO.getWeight());
 		characterEntity.setHistory(characterDTO.getHistory());
-		//TODO characterEntity.setAssociatedMovies(characterDTO.getAssociatedMovies());
+		
+		if (loadAssociatedMovies) {
+			characterEntity.setAssociatedMovies(movieMapper.movieDTOList2EntityList(characterDTO.getAssociatedMovies(), false, true));
+		}
 		
 		return characterEntity;
 	}
@@ -58,5 +61,15 @@ public class CharacterMapper {
 		}
 		
 		return characterDTOList;
+	}
+	
+	public List<CharacterEntity> characterDTOList2EntityList(List<CharacterDTO> characterDTOList, boolean loadAssociatedMovies) {
+		
+		List<CharacterEntity> characterEntityList = new ArrayList<>();
+		for (CharacterDTO dto : characterDTOList) {
+			characterEntityList.add(characterDTO2Entity(dto, loadAssociatedMovies));
+		}
+		
+		return characterEntityList;
 	}
 }
