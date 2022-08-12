@@ -25,21 +25,21 @@ public class GenreController {
 	@GetMapping
 	public ResponseEntity<List<GenreDTO>> getAll() {
 		
-		List<GenreDTO> genreDTOList = genreService.getAllGenre();
+		List<GenreDTO> genreDTOList = genreService.getAllGenre(true);
 		return ResponseEntity.status(HttpStatus.OK).body(genreDTOList);
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<GenreDTO> getById(@PathVariable Long id) {
 		
-		GenreDTO genreDTO = genreService.getGenreById(id);
+		GenreDTO genreDTO = genreService.getGenreById(id, true);
 		return ResponseEntity.status(HttpStatus.OK).body(genreDTO);
 	}
 	
 	@PostMapping
 	public ResponseEntity<GenreDTO> save(@RequestBody GenreDTO genreDTO) {
 		
-		GenreDTO genreDTOSaved = genreService.saveGenre(genreDTO);
+		GenreDTO genreDTOSaved = genreService.saveGenre(genreDTO, true);
 		return ResponseEntity.status(HttpStatus.CREATED).body(genreDTOSaved);
 	}
 }

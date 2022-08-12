@@ -26,35 +26,35 @@ public class GenreServiceImpl implements GenreService{
 
 	
 	@Override
-	public GenreDTO getGenreById(Long id) {
+	public GenreDTO getGenreById(Long id, boolean loadAssociatedMovies) {
 		
 		GenreEntity genreEntity = genreRepository.getReferenceById(id);
-		GenreDTO result = genreMapper.genreEntity2DTO(genreEntity, true);
+		GenreDTO result = genreMapper.genreEntity2DTO(genreEntity, loadAssociatedMovies);
 		return result;
 	}
 
 	@Override
-	public List<GenreDTO> getAllGenre() {
+	public List<GenreDTO> getAllGenre(boolean loadAssociatedMovies) {
 		
 		List<GenreEntity> genreEntityList = genreRepository.findAll();
-		List<GenreDTO> result = genreMapper.genreEntityList2DTOList(genreEntityList, true);
+		List<GenreDTO> result = genreMapper.genreEntityList2DTOList(genreEntityList, loadAssociatedMovies);
 		return result;
 	}
 
 	@Override
-	public GenreDTO saveGenre(GenreDTO genreDTO) {
+	public GenreDTO saveGenre(GenreDTO genreDTO, boolean loadAssociatedMovies) {
 		
-		GenreEntity genreEntity = genreMapper.genreDTO2Entity(genreDTO);
+		GenreEntity genreEntity = genreMapper.genreDTO2Entity(genreDTO, true);
 		GenreEntity genreEntitySaved = genreRepository.save(genreEntity);
-		GenreDTO result = genreMapper.genreEntity2DTO(genreEntitySaved, true);
+		GenreDTO result = genreMapper.genreEntity2DTO(genreEntitySaved, loadAssociatedMovies);
 		return result;
 	}
 
 	@Override
-	public GenreDTO updateGenre(Long id, GenreDTO genreDTO) {
+	public GenreDTO updateGenre(Long id, GenreDTO genreDTO, boolean loadAssociatedMovies) {
 		
 		genreDTO.setId(id);
-		return saveGenre(genreDTO);
+		return saveGenre(genreDTO, loadAssociatedMovies);
 	}
 
 	@Override
