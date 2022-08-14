@@ -2,11 +2,13 @@ package com.alkemy.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alkemy.entity.MovieEntity;
+import com.alkemy.exception.ParamNotFound;
 import com.alkemy.interfaces.CharacterService;
 import com.alkemy.interfaces.GenreService;
 import com.alkemy.interfaces.MovieService;
@@ -39,8 +41,13 @@ public class MovieServiceImpl implements MovieService{
 	@Override
 	public MovieDTO getMovieById(Long id, boolean loadAssociatedCharacters, boolean loadAssociatedGenres) {
 
-		MovieEntity movieEntity  = movieRepository.getReferenceById(id);
-		MovieDTO result = movieMapper.movieEntity2DTO(movieEntity, loadAssociatedCharacters, loadAssociatedGenres);
+		Optional<MovieEntity> movieEntity  = movieRepository.findById(id);
+		
+		if (movieEntity.isEmpty()) {
+			throw new ParamNotFound("Id Movie not valid or Movie not exist!");
+		}
+		
+		MovieDTO result = movieMapper.movieEntity2DTO(movieEntity.get(), loadAssociatedCharacters, loadAssociatedGenres);
 		return result;
 	}
 

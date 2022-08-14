@@ -53,10 +53,10 @@ public class CharacterController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> delete(@PathVariable Long id) {
+	public ResponseEntity<String> delete(@PathVariable Long id) {
 		
 		characterService.deleteCharacterById(id);
-		return ResponseEntity.status(HttpStatus.OK).build();
+		return ResponseEntity.status(HttpStatus.OK).body("Character with id: " + id + " was deleted!");
 	}
 	
 }
