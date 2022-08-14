@@ -1,11 +1,13 @@
 package com.alkemy.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alkemy.entity.GenreEntity;
+import com.alkemy.exception.ParamNotFound;
 import com.alkemy.interfaces.GenreService;
 import com.alkemy.modelDTO.GenreDTO;
 import com.alkemy.modelMapper.GenreMapper;
@@ -28,8 +30,13 @@ public class GenreServiceImpl implements GenreService{
 	@Override
 	public GenreDTO getGenreById(Long id, boolean loadAssociatedMovies) {
 		
-		GenreEntity genreEntity = genreRepository.getReferenceById(id);
-		GenreDTO result = genreMapper.genreEntity2DTO(genreEntity, loadAssociatedMovies);
+		Optional<GenreEntity> genreEntity = genreRepository.findById(id);
+		
+		if (genreEntity.isEmpty()) {
+			throw new ParamNotFound("Id Movie not valid or Movie not exist!");
+		}
+		
+		GenreDTO result = genreMapper.genreEntity2DTO(genreEntity.get(), loadAssociatedMovies);
 		return result;
 	}
 

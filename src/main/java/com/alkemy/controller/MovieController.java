@@ -61,10 +61,10 @@ public class MovieController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> delete(@PathVariable Long id) {
+	public ResponseEntity<String> delete(@PathVariable Long id) {
 		
 		movieService.deleteMovieById(id);
-		return ResponseEntity.status(HttpStatus.OK).build();
+		return ResponseEntity.status(HttpStatus.OK).body("Movie with id: " + id + " was deleted!");
 	}
 	
 	@PostMapping("/{idMovie}/characters/{idCharacter}")

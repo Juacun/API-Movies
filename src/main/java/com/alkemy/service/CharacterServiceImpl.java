@@ -1,11 +1,13 @@
 package com.alkemy.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alkemy.entity.CharacterEntity;
+import com.alkemy.exception.ParamNotFound;
 import com.alkemy.interfaces.CharacterService;
 import com.alkemy.modelDTO.CharacterDTO;
 import com.alkemy.modelMapper.CharacterMapper;
@@ -28,8 +30,13 @@ public class CharacterServiceImpl implements CharacterService{
 	@Override
 	public CharacterDTO getCharacterById(Long id, boolean loadAssociatedMovies) {
 		
-		CharacterEntity characterEntity = characterRepository.getReferenceById(id);
-		CharacterDTO result = characterMapper.characterEntity2DTO(characterEntity, loadAssociatedMovies);
+		Optional<CharacterEntity> characterEntity = characterRepository.findById(id);
+		
+		if (characterEntity.isEmpty()) {
+			throw new ParamNotFound("Id Character not valid or Character not exist!");
+		}
+		
+		CharacterDTO result = characterMapper.characterEntity2DTO(characterEntity.get(), loadAssociatedMovies);
 		return result;
 	}
 
