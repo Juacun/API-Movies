@@ -1,6 +1,7 @@
 package com.alkemy.interfaces;
 
 import java.util.List;
+import java.util.Set;
 
 import com.alkemy.modelDTO.MovieDTO;
 
@@ -10,6 +11,8 @@ public interface MovieService {
 	
 	public List<MovieDTO> getAllMovie(boolean loadAssociatedCharacters, boolean loadAssociatedGenres);
 	
+	public List<MovieDTO> getMovieByFilters(String title, Set<Long> genres, String order);
+
 	public MovieDTO saveMovie(MovieDTO movieDTO, boolean loadAssociatedCharacters, boolean loadAssociatedGenres);
 	
 	public MovieDTO updateMovie(Long id, MovieDTO movieDTO, boolean loadAssociatedCharacters, boolean loadAssociatedGenres);

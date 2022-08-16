@@ -22,7 +22,7 @@ public class GenreController {
 	@Autowired
 	GenreService genreService;
 	
-	@GetMapping
+	@GetMapping("/all")
 	public ResponseEntity<List<GenreDTO>> getAll() {
 		
 		List<GenreDTO> genreDTOList = genreService.getAllGenre(true);

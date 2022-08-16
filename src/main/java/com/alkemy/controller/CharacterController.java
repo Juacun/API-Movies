@@ -1,6 +1,7 @@
 package com.alkemy.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alkemy.interfaces.CharacterService;
@@ -24,7 +26,7 @@ public class CharacterController {
 	@Autowired
 	CharacterService characterService;
 	
-	@GetMapping
+	@GetMapping("/all")
 	public ResponseEntity<List<CharacterDTO>> getAll() {
 		
 		List<CharacterDTO> characterDTOList = characterService.getAllCharacter(true);
@@ -36,6 +38,18 @@ public class CharacterController {
 		
 		CharacterDTO characterDTO = characterService.getCharacterById(id, true);
 		return ResponseEntity.status(HttpStatus.OK).body(characterDTO);
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<CharacterDTO>> getCharacterByFilters(
+			@RequestParam(required = false)String name,
+			@RequestParam(required = false)String age,
+			@RequestParam(required = false)String weight,
+			@RequestParam(required = false)Set<Long> movies
+	) {
+		
+		List<CharacterDTO> characterDTOListFiltered = characterService.getCharacterByFilters(name, age, weight, movies);
+		return ResponseEntity.status(HttpStatus.OK).body(characterDTOListFiltered);
 	}
 	
 	@PostMapping

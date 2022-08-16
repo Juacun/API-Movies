@@ -2,6 +2,7 @@ package com.alkemy.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,18 +11,23 @@ import com.alkemy.entity.CharacterEntity;
 import com.alkemy.exception.ParamNotFound;
 import com.alkemy.interfaces.CharacterService;
 import com.alkemy.modelDTO.CharacterDTO;
+import com.alkemy.modelDTO.CharacterFiltersDTO;
 import com.alkemy.modelMapper.CharacterMapper;
 import com.alkemy.repository.CharacterRepository;
+import com.alkemy.repository.specification.CharacterSpecification;
 
 @Service
 public class CharacterServiceImpl implements CharacterService{
 
+	CharacterSpecification characterSpecification;
 	CharacterRepository characterRepository;
 	CharacterMapper characterMapper;
 	
 	@Autowired
-	public CharacterServiceImpl(CharacterRepository characterRepository, CharacterMapper characterMapper) {
+	public CharacterServiceImpl(CharacterSpecification characterSpecification, 
+								CharacterRepository characterRepository, CharacterMapper characterMapper) {
 		
+		this.characterSpecification = characterSpecification;
 		this.characterRepository = characterRepository;
 		this.characterMapper = characterMapper;
 	}
@@ -49,6 +55,15 @@ public class CharacterServiceImpl implements CharacterService{
 	}
 
 	@Override
+	public List<CharacterDTO> getCharacterByFilters(String name, String age, String weight, Set<Long> movies) {
+		
+		CharacterFiltersDTO filtersDTO = new CharacterFiltersDTO(name, age, weight, movies);
+		List<CharacterEntity> characterEntityListFiltered = characterRepository.findAll(characterSpecification.getByFilters(filtersDTO));
+		List<CharacterDTO> characterDTOListFiltered = characterMapper.characterEntityList2DTOList(characterEntityListFiltered, true);
+		return characterDTOListFiltered;
+	}
+	
+	@Override
 	public CharacterDTO saveCharacter(CharacterDTO characterDTO, boolean loadAssociatedMovies) {
 		
 		CharacterEntity characterEntity = characterMapper.characterDTO2Entity(characterDTO, true);
@@ -69,5 +84,5 @@ public class CharacterServiceImpl implements CharacterService{
 		
 		characterRepository.deleteById(id);
 	}
-	
+
 }

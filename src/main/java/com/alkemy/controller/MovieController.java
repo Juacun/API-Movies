@@ -1,6 +1,7 @@
 package com.alkemy.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alkemy.interfaces.CharacterService;
@@ -32,7 +34,7 @@ public class MovieController {
 		this.characterService = characterService;
 	}
 	
-	@GetMapping
+	@GetMapping("/all")
 	public ResponseEntity<List<MovieDTO>> getAll() {
 		
 		List<MovieDTO> movieDTOList = movieService.getAllMovie(true, true);
@@ -44,6 +46,18 @@ public class MovieController {
 		
 		MovieDTO movieDTO = movieService.getMovieById(id, true, true);
 		return ResponseEntity.status(HttpStatus.OK).body(movieDTO);
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<MovieDTO>> getMovieByFilters(
+			@RequestParam(required = false)String title,
+			@RequestParam(required = false)Set<Long> genres,
+			@RequestParam(required = false, defaultValue = "ASC")String order
+
+	) {
+		
+		List<MovieDTO> movieDTOListFiltered = movieService.getMovieByFilters(title, genres, order);
+		return ResponseEntity.status(HttpStatus.OK).body(movieDTOListFiltered);
 	}
 	
 	@PostMapping

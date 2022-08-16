@@ -3,6 +3,7 @@ package com.alkemy.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,12 +16,15 @@ import com.alkemy.interfaces.MovieService;
 import com.alkemy.modelDTO.CharacterDTO;
 import com.alkemy.modelDTO.GenreDTO;
 import com.alkemy.modelDTO.MovieDTO;
+import com.alkemy.modelDTO.MovieFiltersDTO;
 import com.alkemy.modelMapper.MovieMapper;
 import com.alkemy.repository.MovieRepository;
+import com.alkemy.repository.specification.MovieSpecification;
 
 @Service
 public class MovieServiceImpl implements MovieService{
 
+	MovieSpecification movieSpecification;
 	MovieRepository movieRepository;
 	MovieMapper movieMapper;
 	
@@ -28,11 +32,13 @@ public class MovieServiceImpl implements MovieService{
 	GenreService genreService;
 	
 	@Autowired
-	public MovieServiceImpl(MovieRepository movieRepository, MovieMapper movieMapper, 
+	public MovieServiceImpl(MovieSpecification movieSpecification, MovieRepository movieRepository, MovieMapper movieMapper, 
 							CharacterService characterService, GenreService genreService) {
-		
+	
+	this.movieSpecification = movieSpecification;
 	this.movieRepository = movieRepository;
 	this.movieMapper = movieMapper;
+	
 	this.characterService = characterService;
 	this.genreService = genreService;
 	}
@@ -59,6 +65,15 @@ public class MovieServiceImpl implements MovieService{
 		return result;
 	}
 
+	@Override
+	public List<MovieDTO> getMovieByFilters(String title, Set<Long> genres, String order) {
+		
+		MovieFiltersDTO filtersDTO = new MovieFiltersDTO(title, genres, order);
+		List<MovieEntity> movieEntityListFiltered = movieRepository.findAll(movieSpecification.getByFilters(filtersDTO));
+		List<MovieDTO> movieDTOListFiltered = movieMapper.movieEntityList2DTOList(movieEntityListFiltered, false, true);
+		return movieDTOListFiltered;
+	}
+	
 	@Override
 	public MovieDTO saveMovie(MovieDTO movieDTO, boolean loadAssociatedCharacters, boolean loadAssociatedGenres) {
 		
