@@ -25,36 +25,4 @@ public class CharacterFiltersDTO {
 		this.movies = movies;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getAge() {
-		return age;
-	}
-
-	public void setAge(String age) {
-		this.age = age;
-	}
-
-	public String getWeight() {
-		return weight;
-	}
-
-	public void setWeight(String weight) {
-		this.weight = weight;
-	}
-
-	public Set<Long> getMovies() {
-		return movies;
-	}
-
-	public void setMovies(Set<Long> movies) {
-		this.movies = movies;
-	}
-	
 }

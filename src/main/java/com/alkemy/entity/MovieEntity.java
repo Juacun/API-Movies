@@ -13,10 +13,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
-@Table(name = "movies")
 @Getter
 @Setter
+@Entity
+@Table(name = "movies")
 @SQLDelete(sql = "UPDATE movies SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
 public class MovieEntity {
@@ -58,71 +58,6 @@ public class MovieEntity {
 	private List<GenreEntity> associatedGenres = new ArrayList<>();
 	
 	private boolean deleted = Boolean.FALSE;
-	
-	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public LocalDate getDateCreation() {
-		return dateCreation;
-	}
-
-	public void setDateCreation(LocalDate dateCreation) {
-		this.dateCreation = dateCreation;
-	}
-
-	public int getScore() {
-		return score;
-	}
-
-	public void setScore(int score) {
-		this.score = score;
-	}
-
-	public List<CharacterEntity> getAssociatedCharacters() {
-		return associatedCharacters;
-	}
-
-	public void setAssociatedCharacters(List<CharacterEntity> associatedCharacters) {
-		this.associatedCharacters = associatedCharacters;
-	}
-	
-	public List<GenreEntity> getAssociatedGenres() {
-		return associatedGenres;
-	}
-
-	public void setAssociatedGenres(List<GenreEntity> associatedGenres) {
-		this.associatedGenres = associatedGenres;
-	}
-
-	public boolean isDeleted() {
-		return deleted;
-	}
-
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
-	}
 
 	
 	public void addCharacter(CharacterEntity character) {this.associatedCharacters.add(character);}

@@ -22,32 +22,6 @@ public class MovieFiltersDTO {
 		this.order = order;
 	}
 
-	
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public Set<Long> getGenres() {
-		return genres;
-	}
-
-	public void setGenres(Set<Long> genres) {
-		this.genres = genres;
-	}
-
-	public String getOrder() {
-		return order;
-	}
-
-	public void setOrder(String order) {
-		this.order = order;
-	}
-	
-	
 	public boolean isASC() { return this.order.compareToIgnoreCase("ASC") == 0; }
 	
 	public boolean isDESC() { return this.order.compareToIgnoreCase("DESC") == 0; }
